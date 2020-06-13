@@ -10,8 +10,8 @@ export default class DrinkCard extends Component {
     console.log(this.props)
     return (
       <div className="drink-card">
-        I'm a Drink Card on Main Container
-      <CardFront />
+        
+      {this.props.drink.name}
        </div>
     )
   }

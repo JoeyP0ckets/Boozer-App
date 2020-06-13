@@ -24,9 +24,7 @@ export default class MainContainer extends Component {
     .then(drinks => this.setState({drinksArray: drinks}, () => console.log(drinks)))
   }
   
-  generateDrinkCards = () => {
-
-  }
+ 
   
   render() {
     return (
