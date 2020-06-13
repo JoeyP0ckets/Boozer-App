@@ -10,8 +10,12 @@ export default class DrinkCard extends Component {
     console.log(this.props)
     return (
       <div className="drink-card">
-        
-      {this.props.drink.name}
+       <ul> 
+         {this.props.drink.name}
+         <li>
+         {this.props.drink.description}
+         </li>
+       </ul>
        </div>
     )
   }
