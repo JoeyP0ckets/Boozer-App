@@ -4,7 +4,7 @@ export default class Navbar extends Component {
   render() {
     return(
       <div className="nav-bar">
-        I'm the Navbar on Main Container
+       <h3>Login Logout MyFavDrinks AddDrink</h3>  
       <Search />
       </div>
     )
