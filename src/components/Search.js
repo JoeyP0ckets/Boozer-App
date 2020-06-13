@@ -1,11 +1,14 @@
-import React, {Component} from 'react'
+import React from 'react'
 
-export default class Search extends Component {
-  render() {
-    return(
-      <div>
-        I'm the search bar on Nav Bar
+const Search = props => {
+  return (
+    <div className="ui search">
+      <div className="ui icon input">
+        <input className="prompt" onChange={(event) => props.searchDrinkName(event)} />
+        <i className="search icon" />
       </div>
-    )
-  }
+    </div>
+  )
 }
+
+export default Search
