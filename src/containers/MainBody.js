@@ -5,9 +5,12 @@ import Sidebar from "../components/SideBar"
 import MyFavDrinks from './MyFavDrinks'
 import ContentPane from './ContentPane'
 import FuzzySearch from 'fuzzy-search'
+import "../styles/MainContent.css";
 
-const baseUrl = "http://localhost:3000/api/v1/cocktails"
+const cocktailsUrl = "http://localhost:3000/api/v1/cocktails/"
+const ingredientsUrl = "http://localhost:3000/api/v1/ingredients" 
 
+// const proportionsUrl = "http://localhost:3000/api/v1/proportions"
 export default class MainContainer extends Component {
   
   constructor() {
@@ -17,21 +20,45 @@ export default class MainContainer extends Component {
       drinksArray: [],
       myFavDrinksArray: [],
       selectedDrink: null,  
-      filteredByName: []
+      filteredByName: [],
+      ingredientsArray: [],
+      selectedDrinkDetail: [],
     }
   }
   componentDidMount() {
-    fetch(baseUrl)
-    .then(resp => resp.json())
-    .then(drinks => 
-      this.setState({
-        drinksArray: drinks, 
-        filteredByName: drinks
-      })
-      )
+   this.getCocktailData()
+   this.getIngredientData()
+   
   }
   
- selectDrink = (drink) => {
+ getCocktailData = () => {
+  fetch(cocktailsUrl)
+  .then(resp => resp.json())
+  .then(drinks => 
+    this.setState({
+      drinksArray: drinks, 
+      filteredByName: drinks
+    })
+    )
+ }
+ 
+ getIngredientData = () => {
+   fetch(ingredientsUrl)
+    .then(resp => resp.json())
+    .then(ingredients => this.setState({ingredientsArray: ingredients}))
+ }
+ 
+ fetchDrinkDetailData = (id) => {
+    const finalUrl = cocktailsUrl + id
+        fetch(finalUrl)
+        .then(resp => resp.json())
+        .then(drinkDetail => this.setState({
+          selectedDrinkDetail: drinkDetail
+        }))
+ }
+ 
+ 
+  selectDrink = (drink) => {
   if (this.state.selectedDrink !== null && drink.name === this.state.selectedDrink.name) {
     this.setState({
       selectedDrink: null
@@ -39,7 +66,9 @@ export default class MainContainer extends Component {
   } else {
     this.setState({
       selectedDrink: drink
+      
     })
+    this.fetchDrinkDetailData(drink.id)
   }
  }
 
@@ -52,17 +81,23 @@ export default class MainContainer extends Component {
 }
   
   render() {
+    console.log(this.state)
     return (
       <div className="main-container">
         <h1>Welcome you Boozehound</h1>
         <Navbar searchDrinkName={this.searchDrinkName}/>
+        <div className="sideBar">
         <Sidebar 
         drinksArray={this.state.filteredByName} 
         selectDrink={this.selectDrink}
         
         />
-        <MyFavDrinks myDrinksArray={this.state.myFavDrinksArray}/>
-        <ContentPane selectedDrink={this.state.selectedDrink}/>
+        </div>
+        {/* <MyFavDrinks myDrinksArray={this.state.myFavDrinksArray}/> */}
+        <ContentPane 
+        selectedDrink={this.state.selectedDrink}
+        detail={this.state.selectedDrinkDetail}
+        />
         
         
       </div>
