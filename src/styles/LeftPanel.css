@@ -1,0 +1,114 @@
+a, .navbar-nav, .navbar-light .nav-link {
+  color: #9FFFCB;
+  /* &:hover { color: white; } */
+}
+
+.navbar-brand {
+  font-size: 1.4em;
+  background-color: blue;
+  color: white;    /* &:hover { color: white; } */
+}
+
+.leftPanel {
+  height: 100%;
+  width: 200px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: blue;
+  color: white;    
+  overflow-x: auto;
+  padding-top: 75px;
+  padding-bottom: 50px;
+}
+
+.leftNav {
+  background-color: blue;
+  color: white;  
+}
+
+.xLogoContainer {
+  position: relative;
+  top: 0px;
+  margin-bottom: 25px;
+  padding-bottom: 100px;
+}
+
+.xLogo {
+  position: absolute;
+  top: -5px;
+  right: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.collapsible {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  height: 50px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 20px;
+  border-top: 2px solid blue;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  background-color: #ccc;
+}
+
+.modeButton {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  height: 50px;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 20px;
+  border-top: 2px solid blue;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  color: red;
+  background-color: black;
+  box-sizing: border-box;
+}
+
+
+.content ul {
+  list-style-type: none;
+  text-align: center;
+  width: 100%;
+  min-width: 100%;
+  padding: 0;
+  width:100%;
+}
+
+
+.content li {
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  /* padding-top: 3; */
+  padding: 0;
+  
+}
+
+.content li:hover {
+  /* background-color: darkgoldenrod; */
+  font-weight: bolder;
+  cursor: pointer;
+  background-color: 	#FFFF33;
+  color: black;
+}
