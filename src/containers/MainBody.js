@@ -21,8 +21,6 @@ export default class MainContainer extends Component {
       myFavDrinksArray: [],
       selectedDrink: null,  
       filteredByName: [],
-      ingredientsArray: [],
-      selectedDrinkDetail: [],
     }
   }
   componentDidMount() {
@@ -53,21 +51,21 @@ export default class MainContainer extends Component {
         fetch(finalUrl)
         .then(resp => resp.json())
         .then(drinkDetail => this.setState({
-          selectedDrinkDetail: drinkDetail
+          selectedDrink: drinkDetail
         }))
  }
  
  
   selectDrink = (drink) => {
-  if (this.state.selectedDrink !== null && drink.name === this.state.selectedDrink.name) {
+    console.log(drink)
+    console.log(this.state)
+    if (this.state.selectedDrink !== null && this.state.selectedDrink.id !== null && drink.id === this.state.selectedDrink.id) {
     this.setState({
-      selectedDrink: null
-    })
-  } else {
-    this.setState({
-      selectedDrink: drink
+      selectedDrink: null,
       
     })
+  } else {
+  
     this.fetchDrinkDetailData(drink.id)
   }
  }
@@ -96,7 +94,7 @@ export default class MainContainer extends Component {
         {/* <MyFavDrinks myDrinksArray={this.state.myFavDrinksArray}/> */}
         <ContentPane 
         selectedDrink={this.state.selectedDrink}
-        detail={this.state.selectedDrinkDetail}
+        // detail={this.state.selectedDrinkDetail}
         />
         
         
