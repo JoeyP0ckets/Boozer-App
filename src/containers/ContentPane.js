@@ -3,9 +3,10 @@ import "../styles/MainContent.css"
 
 export default class ContentPane extends Component {
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     let d = this.props.selectedDrink
-    let deets = this.props.detail
+    console.log(d)
+    // let deets = this.props.detail
     if (d === null || d === undefined) {
       return (
         <h1>Please Select a Drink</h1>
@@ -20,9 +21,9 @@ export default class ContentPane extends Component {
     <br></br>
     <h3>Mixologist: {d.source}</h3>
     <br></br>
-    { deets.proportions && 
+    { d.proportions && 
       <h3>Ingredients: 
-        <ul>{deets.proportions.map(prop =>
+        <ul>{d.proportions.map(prop =>
           <li>
             {prop.amount}
             {prop.ingredient_name}
