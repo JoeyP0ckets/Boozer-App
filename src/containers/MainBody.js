@@ -2,15 +2,13 @@ import React, { Component } from 'react'
 import Navbar from "../components/Navbar"
 import Sidebar from "../components/SideBar"
 // import DrinkForm from "../components/DrinkForm"
-import MyFavDrinks from './MyFavDrinks'
+// import MyFavDrinks from './MyFavDrinks'
 import ContentPane from './ContentPane'
 import FuzzySearch from 'fuzzy-search'
 import "../styles/MainContent.css";
 
 const cocktailsUrl = "http://localhost:3000/api/v1/cocktails/"
 const ingredientsUrl = "http://localhost:3000/api/v1/ingredients" 
-
-// const proportionsUrl = "http://localhost:3000/api/v1/proportions"
 export default class MainContainer extends Component {
   
   constructor() {
@@ -21,6 +19,7 @@ export default class MainContainer extends Component {
       myFavDrinksArray: [],
       selectedDrink: null,  
       filteredByName: [],
+      selectedContent: "HOME"
     }
   }
   componentDidMount() {
@@ -77,24 +76,33 @@ export default class MainContainer extends Component {
     filteredByName: result
   })
 }
+
+registerChoice = (choice) => {
+  this.setState({
+    selectedContent: choice
+  })
+}
   
   render() {
     console.log(this.state)
     return (
       <div className="main-container">
         <h1>Welcome you Boozehound</h1>
-        <Navbar searchDrinkName={this.searchDrinkName}/>
+        <Navbar 
+          searchDrinkName={this.searchDrinkName} 
+          registerChoice={this.registerChoice}
+        />
         <div className="sideBar">
         <Sidebar 
-        drinksArray={this.state.filteredByName} 
-        selectDrink={this.selectDrink}
+          drinksArray={this.state.filteredByName} 
+          selectDrink={this.selectDrink}
         
         />
         </div>
         {/* <MyFavDrinks myDrinksArray={this.state.myFavDrinksArray}/> */}
         <ContentPane 
         selectedDrink={this.state.selectedDrink}
-        // detail={this.state.selectedDrinkDetail}
+        selectedContent={this.state.selectedContent}
         />
         
         
