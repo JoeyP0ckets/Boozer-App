@@ -19,7 +19,9 @@ export default class MainContainer extends Component {
       myFavDrinksArray: [],
       selectedDrink: null,  
       filteredByName: [],
-      selectedContent: "HOME"
+      selectedContent: "HOME",
+      ingredientsArray: [],
+      
     }
   }
   componentDidMount() {
@@ -82,16 +84,34 @@ registerChoice = (choice) => {
     selectedContent: choice
   })
 }
-  
+
+handleCreateDrink = (newCocktail) => {
+  // console.log(newCocktail)
+  fetch(cocktailsUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: newCocktail.name,
+      description: newCocktail.description,
+      instructions: newCocktail.instructions,
+      source: newCocktail.source,
+      proportions: [],
+      ingredient_name: newCocktail.proportions.ingredient_name,
+      amount: newCocktail.proportions.amount
+    })
+  })
+}
+
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return (
       <div className="main-container">
         <h1>Welcome you Boozehound</h1>
         <Navbar 
           searchDrinkName={this.searchDrinkName} 
-          registerChoice={this.registerChoice}
-        />
+          registerChoice={this.registerChoice}/>
         <div className="sideBar">
         <Sidebar 
           drinksArray={this.state.filteredByName} 
@@ -103,6 +123,8 @@ registerChoice = (choice) => {
         <ContentPane 
         selectedDrink={this.state.selectedDrink}
         selectedContent={this.state.selectedContent}
+        ingredientsArray={this.state.ingredientsArray}
+        handleCreateDrink={this.handleCreateDrink}
         />
         
         
