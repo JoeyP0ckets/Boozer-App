@@ -9,7 +9,10 @@ import MyFaveDrinks from '../containers/MyFavDrinks'
 export default class ContentPane extends Component {
   render() {
     if (this.props.selectedContent === "FORM") {
-      return (<DrinkForm />) 
+      return (<DrinkForm 
+        ingredientsArray={this.props.ingredientsArray}
+        handleCreateDrink={this.props.handleCreateDrink}
+        />) 
     } else if (this.props.selectedContent === "FAVORITES") {
       return (<MyFaveDrinks />)
     } else if (this.props.selectedContent === "LOGIN") {
@@ -19,6 +22,7 @@ export default class ContentPane extends Component {
     } else if (this.props.selectedContent === "HOME") {
       //everything in this block will eventually be the RENDER of a DRINK_DETAIL component
       let d = this.props.selectedDrink
+      // console.log(d)
       if (d === null || d === undefined) {
         return (
           <h1>Please Select a Drink</h1>

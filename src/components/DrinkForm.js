@@ -4,6 +4,7 @@ import React, {Component} from "react"
 
 
 const ozArray = [".25 oz", ".5 oz", ".75 oz", "1 oz", "1.25 oz", "1.5 oz", "2 oz", "2.25 oz", "1 dash", "2 dash", "3 dash", "4 dash"]
+
 export default class DrinkForm extends Component {
   
   state = {
@@ -11,10 +12,10 @@ export default class DrinkForm extends Component {
     description: "",
     instructions: "",
     source: "",
-    ingredient_name: "",
     proportions: [],
-    submittedData: [],
-    amount: "Select Amount"
+    ingredient_name: "Select Ingredient",
+    amount: "Select Amount",
+    
   }
   
   handleNameChange = event => {
@@ -44,35 +45,35 @@ export default class DrinkForm extends Component {
       source: event.target.value
     })
   }
+ 
+  
+  
+  
+  handleProportionSubmit = () => {
+    // debugger
+      let proportionData = {
+        amount: this.state.amount,
+        ingredient_name: this.state.ingredient_name
+      }
+      let proportionArray = this.state.proportions.concat(proportionData)
+      console.log(proportionArray)
 
-  handleIngredientsChange = event => {
-    console.log(event.target.value)
+      this.setState({
+        proportions: proportionArray
+      })
+      this.resetProportion() 
+   }    
+ 
+  resetProportion = () => {
     this.setState({
-      ingredient_name: event.target.value
+      ingredient_name: "Select Ingredient",
+      amount: "Select Amount"
     })
   }
-  
-  handleSubmit = event => {
-    event.preventDefault()
-    let formData = { 
-      name: this.state.name,
-      description: this.state.description,
-      instructions: this.state.instructions,
-      source: this.state.source, 
-    }
-    let dataArray = this.state.submittedData.concat(formData)
-    console.log(dataArray)
-
-    this.setState({
-      submittedData: dataArray
-    })
-  }
-  
   render() {
-    console.log(this.state)
+    // console.log(this.state)
     return(
       <div className="drink-create">
-        <form className="drink-form" onSubmit={event => this.handleSubmit(event)}>
           <h1>Please Enter A New Libation</h1>
           <input 
             type="text"
@@ -102,25 +103,30 @@ export default class DrinkForm extends Component {
             value={this.state.source}>
           </input>
           <br></br>
-          <input 
-            type="text" 
-            placeholder="Ingredients"
-            onChange={ event => this.handleIngredientsChange(event)} 
-            value={this.state.ingredient_name}>
-          </input>
-          <br></br>
-          Amount: <select 
-            className="amount-select"
-            value={this.state.amount} 
-            onChange={event => {this.setState({amount: event.target.value})}}>
-            <option value="Select Amount" disabled>Select</option>
-            {ozArray.map(oz => <option>
+          <select 
+             className="amount-select"
+             value={this.state.amount} 
+             onChange={event => {this.setState({amount: event.target.value})}}>
+             <option value="Select Amount" disabled>Select Amount</option>
+             {ozArray.map(oz => 
+             <option>
                 {oz}
-              </option>)}
+             </option>)}
           </select>
-          <br></br>
-          <button>Mix Drink</button>
-        </form>
+            <select 
+              className="ingredient-select"
+              value={this.state.ingredient_name}
+              onChange={ event => {this.setState({ingredient_name: event.target.value})}}>
+            <option value="Select Ingredient" disabled>Select Ingredient</option> 
+             {this.props.ingredientsArray.map(ingredient => <option>
+              {ingredient.name}
+              </option>)}
+            </select>
+            <br></br>
+            <button onClick={this.handleProportionSubmit}>Add Proportion</button>
+          
+          <button onClick={() => this.props.handleCreateDrink(this.state)}>Mix Drink</button>
+        
       </div>
     )
   }
