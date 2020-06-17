@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from "react-router";
 
 export default class Login extends Component {
   
@@ -54,7 +55,7 @@ export default class Login extends Component {
           </input>
           <br></br>
           <input
-            type="text"
+            type="password"
             placeholder="Password"
             onChange={this.handleInputChange}
             name="password"
