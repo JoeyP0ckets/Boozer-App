@@ -2,56 +2,63 @@ import React, { Component } from 'react'
 
 export default class Signup extends Component {
   
-  state = {
+  initialState = {
     username: "",
-    password_digest: "",
-    submittedData: [],
-  }
-  
-  handleUsernameChange = event => {
-    console.log(event.target.value)
-    this.setState({
-      username: event.target.value
-    })
+    password: "",
   }
 
-  handlePasswordChange = event => {
-    console.log(event.target.value)
-    this.setState({
-      password_digest: event.target.value
-    })
-  }
+    state = this.initialState
   
-  handleSubmit = event => {
-    event.preventDefault()
-    let formData = {
-      username: this.state.username,
-      password_digest: this.state.password_digest
+  handleInputChange = event => {
+    console.log(event.target.value)
+    if(event.target.name === 'username') {
+      this.setState({ username: event.target.value })
+    } else if (event.target.name === 'password') {
+      this.setState({ password: event.target.value})
     }
-    let dataArray = this.state.submittedData.concat(formData)
-    console.log(dataArray)
-    this.setState({
-      submittedData: dataArray
-    })
-
+   
   }
+
+
+  handleSubmit = event => { 
+    event.preventDefault()
+    const userObj = {
+      username: this.state.username,
+      password: this.state.password
+    }
+    
+    fetch("http://localhost:3000/api/v1/signup", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({user: userObj})
+    }).then(res => res.json())
+    .then(token => {
+      console.log(token)
+      // this.props.handleLogin(token.token)
+    })
+    .catch(error => console.log(error))
+}
   render() {
-    return (
-      <div className="signup-container">
-        <h3>Create A New User</h3>
-        <form className="signup-form" onSubmit={ event => this.handleSubmit(event)}>
+    return(
+      <div className="login-container">
+        <h3>Signup</h3>
+        <form className="login-form" onSubmit={this.handleSubmit}>
           <input 
             type="text"
             placeholder="Username"
-            onChange={ event => this.handleUsernameChange(event)} 
+            onChange={this.handleInputChange} 
+            name="username"
             value={this.state.username}>         
           </input>
           <br></br>
           <input
             type="text"
             placeholder="Password"
-            onChange={ event => this.handlePasswordChange(event)}
-            value={this.state.password_digest}>
+            onChange={this.handleInputChange}
+            name="password"
+            value={this.state.password}>
           </input>
           <br></br>
           <button>Submit</button>

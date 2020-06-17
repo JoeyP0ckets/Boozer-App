@@ -16,7 +16,7 @@ export default class ContentPane extends Component {
     } else if (this.props.selectedContent === "FAVORITES") {
       return (<MyFaveDrinks />)
     } else if (this.props.selectedContent === "LOGIN") {
-      return (<Login />)
+      return (<Login handleLogin={this.props.handleLogin}/>)
     } else if (this.props.selectedContent === "SIGNUP") {
       return (<Signup />)
     } else if (this.props.selectedContent === "HOME") {
