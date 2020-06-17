@@ -12,9 +12,11 @@ export default class DrinkForm extends Component {
     description: "",
     instructions: "",
     source: "",
-    proportions: [],
-    ingredient_name: "Select Ingredient",
+    proportion_attributes: [], 
+    ingredient: "Select Ingredient", 
     amount: "Select Amount",
+    
+    
     
   }
   
@@ -53,20 +55,20 @@ export default class DrinkForm extends Component {
     // debugger
       let proportionData = {
         amount: this.state.amount,
-        ingredient_name: this.state.ingredient_name
+        ingredient: this.state.ingredient
       }
-      let proportionArray = this.state.proportions.concat(proportionData)
+      let proportionArray = this.state.proportion_attributes.concat(proportionData)
       console.log(proportionArray)
 
       this.setState({
-        proportions: proportionArray
+        proportion_attributes: proportionArray
       })
       this.resetProportion() 
    }    
  
   resetProportion = () => {
     this.setState({
-      ingredient_name: "Select Ingredient",
+      ingredient: "Select Ingredient",
       amount: "Select Amount"
     })
   }
@@ -115,12 +117,11 @@ export default class DrinkForm extends Component {
           </select>
             <select 
               className="ingredient-select"
-              value={this.state.ingredient_name}
-              onChange={ event => {this.setState({ingredient_name: event.target.value})}}>
+              value={this.state.ingredient.name}
+              onChange={ event => {this.setState({ingredient: event.target.value})}}>
             <option value="Select Ingredient" disabled>Select Ingredient</option> 
-             {this.props.ingredientsArray.map(ingredient => <option>
-              {ingredient.name}
-              </option>)}
+             {this.props.ingredientsArray.map(ingredient => 
+             <option value={ingredient.id}>{ingredient.name}</option>)}
             </select>
             <br></br>
             <button onClick={this.handleProportionSubmit}>Add Proportion</button>
