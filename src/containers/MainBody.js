@@ -126,6 +126,7 @@ handleCreateDrink = (newCocktail) => {
         selectedContent={this.state.selectedContent}
         ingredientsArray={this.state.ingredientsArray}
         handleCreateDrink={this.handleCreateDrink}
+        handleLogin={this.handleLogin}
         />
         
         

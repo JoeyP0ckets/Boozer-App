@@ -27,7 +27,7 @@ export default class Login extends Component {
       password: this.state.password
     }
     
-    fetch("http://localhost:3000/api/v1/sessions", {
+    fetch("http://localhost:3000/api/v1/login", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
