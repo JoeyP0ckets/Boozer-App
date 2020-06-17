@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import Navbar from "../components/Navbar"
 import Sidebar from "../components/SideBar"
-// import DrinkForm from "../components/DrinkForm"
-// import MyFavDrinks from './MyFavDrinks'
 import ContentPane from './ContentPane'
 import FuzzySearch from 'fuzzy-search'
 import "../styles/MainContent.css";
@@ -21,6 +19,7 @@ export default class MainContainer extends Component {
       filteredByName: [],
       selectedContent: "HOME",
       ingredientsArray: [],
+
       
     }
   }
@@ -75,8 +74,8 @@ export default class MainContainer extends Component {
   let searcher = new FuzzySearch(this.state.drinksArray, ['name'])
   let result = searcher.search(event.target.value)
   this.setState({
-    filteredByName: result
-  })
+    filteredByName: result,
+    })
 }
 
 registerChoice = (choice) => {
@@ -86,24 +85,26 @@ registerChoice = (choice) => {
 }
 
 handleCreateDrink = (newCocktail) => {
-  // console.log(newCocktail)
+  console.log(newCocktail)
   fetch(cocktailsUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      name: newCocktail.name,
-      description: newCocktail.description,
-      instructions: newCocktail.instructions,
-      source: newCocktail.source,
-      proportions: [],
-      ingredient_name: newCocktail.proportions.ingredient_name,
-      amount: newCocktail.proportions.amount
+    body: JSON.stringify({cocktail: newCocktail
+
+      // name: newCocktail.name,
+      // description: newCocktail.description,
+      // instructions: newCocktail.instructions,
+      // source: newCocktail.source,
+      // proportions: newCocktail.proportions
     })
   })
 }
-
+  handleLogin = (token) => {
+    console.log(token)
+    localStorage.setItem('auth_token', token)
+  }
   render() {
     // console.log(this.state)
     return (
