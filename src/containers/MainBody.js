@@ -92,23 +92,22 @@ handleCreateDrink = (newCocktail) => {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({cocktail: newCocktail
-
-      // name: newCocktail.name,
-      // description: newCocktail.description,
-      // instructions: newCocktail.instructions,
-      // source: newCocktail.source,
-      // proportions: newCocktail.proportions
     })
   })
 }
   handleLogin = (token) => {
     console.log(token)
     localStorage.setItem('auth_token', token)
+    this.setState({
+      selectedContent: "HOME"
+    })
   }
+
+  
   render() {
     // console.log(this.state)
     return (
-      <div className="main-container">
+     <div className="main-container">
         <h1>Welcome you Boozehound</h1>
         <Navbar 
           searchDrinkName={this.searchDrinkName} 

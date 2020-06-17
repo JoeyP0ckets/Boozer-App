@@ -4,7 +4,7 @@ import DrinkForm from '../components/DrinkForm'
 import Login from '../components/Login'
 import Signup from '../components/Signup'
 import MyFaveDrinks from '../containers/MyFavDrinks'
-
+import { BrowserRouter, Route, Switch } from 'react-router-dom' 
 
 export default class ContentPane extends Component {
   render() {
@@ -28,14 +28,14 @@ export default class ContentPane extends Component {
           <h1>Please Select a Drink</h1>
         )
       }
-      return(
+     return(
         <div className="contentPane">
           <h1>{d.name}</h1>
           <h3>Description: {d.description}</h3>
           <br/>
           <h3>Instructions: {d.instructions}. </h3>
           <br/>
-          <h3>Mixologist{d.source}</h3>
+          <h3>Mixologist:{d.source}</h3>
           <br/>
         { d.proportions && 
           <h3>Ingredients: 
